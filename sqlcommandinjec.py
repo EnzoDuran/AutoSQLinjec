@@ -23,10 +23,9 @@ def read_test_cases(file_path):
 # Caminho para o arquivo de casos de teste
 file_path = 'test_cases.txt'
 
-# Obtenha os casos de teste
+# Obtendo os casos de teste
 test_cases = read_test_cases(file_path)
-
-# Define o número de threads
+#threads 
 num_threads = 50
 
 # Cria um ThreadPoolExecutor para executar as requisições em paralelo
@@ -35,7 +34,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     for test_case in test_cases:
         # Envia a tarefa para o executor e armazena o futuro
         futures.append(executor.submit(check_sql_injection, test_case))
-        # Atraso de 0.1 segundos entre o envio de cada tarefa
+        # Atraso entre o envio de cada tarefa
         time.sleep(0.01)
 
     # Espera todas as tarefas serem concluídas
