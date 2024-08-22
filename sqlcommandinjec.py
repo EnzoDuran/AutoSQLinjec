@@ -2,7 +2,7 @@ import requests
 import concurrent.futures
 import time
 
-# Define the application's URL and parameters
+# Site que será testado
 url = "http://testphp.vulnweb.com/"
 params = {"query": ""}
 
