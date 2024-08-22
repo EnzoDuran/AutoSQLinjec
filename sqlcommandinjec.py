@@ -14,6 +14,9 @@ def check_sql_injection(test_case):
     # Verifique a resposta para sinais de injeção SQL
     if response.status_code == 500 or "Error" in response.text:
         print(f"Potential SQL injection detected: {test_case}")
+
+    else:
+        print(f"No SQL injection detected: {test_case}")
 # Função para ler casos de teste do arquivo
 def read_test_cases(file_path):
     with open(file_path, 'r') as file:
@@ -23,12 +26,13 @@ def read_test_cases(file_path):
 # Caminho para o arquivo de casos de teste
 file_path = 'test_cases.txt'
 
-# Obtendo os casos de teste
+# Obtenha os casos de teste
 test_cases = read_test_cases(file_path)
-#threads 
+
+# Define o número de threads
 num_threads = 50
 
-# Cria um ThreadPoolExecutor para executar as requisições em paralelo
+# Cria um TPE para executar as requisições em paralelo
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     futures = []
     for test_case in test_cases:
