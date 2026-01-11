@@ -1,21 +1,40 @@
-Este projeto implementa uma aplicação em Python para verificar vulnerabilidades de injeção SQL em uma aplicação web, utilizando requisições HTTP concorrentes. O objetivo é automatizar a detecção de possíveis falhas de segurança relacionadas à injeção de SQL, realizando testes em paralelo com múltiplos casos de teste.
+SQL Injection Vulnerability Checker
 
-Funcionamento
-Importações e Definições Iniciais:
+This project is a Python application designed to detect SQL injection vulnerabilities in a web application by sending concurrent HTTP requests. It automates security testing by running multiple SQL injection payloads in parallel to identify potential backend failures.
 
-As bibliotecas requests, concurrent.futures, e time são importadas para realizar requisições HTTP, gerenciar a concorrência e controlar o tempo entre as requisições, respectivamente.
-A URL da aplicação a ser testada é definida, juntamente com os parâmetros de consulta padrão.
-Verificação de Injeção SQL:
+How It Works
+Imports and Setup
 
-A função check_sql_injection(test_case) envia uma requisição HTTP à aplicação web com um parâmetro de consulta específico para cada caso de teste.
-A resposta da aplicação é analisada em busca de sinais de falha, como código de status 500 ou mensagens de erro, que podem indicar uma vulnerabilidade de injeção SQL.
-Leitura de Casos de Teste:
+The project uses the following libraries:
 
-A função read_test_cases(file_path) lê um arquivo de texto contendo os casos de teste (um por linha) e retorna uma lista desses casos para ser utilizada na verificação.
-Execução Concorrente:
+requests for sending HTTP requests
 
-Um ThreadPoolExecutor é criado para enviar múltiplas requisições em paralelo, utilizando um número especificado de threads (neste caso, 50).
-Um pequeno atraso é introduzido entre o envio de cada requisição para evitar sobrecarga no servidor.
-O script aguarda a conclusão de todas as requisições antes de finalizar.
-Arquivo de Casos de Teste
-O projeto espera que o arquivo test_cases.txt contenha os casos de teste que serão utilizados para verificar a presença de injeção SQL. Cada linha do arquivo deve representar um caso de teste único.
+concurrent.futures for managing concurrency
+
+time for controlling delays between requests
+
+The target URL and default query parameters are defined at the beginning of the script.
+
+SQL Injection Detection
+
+The function check_sql_injection(test_case) sends an HTTP request to the web application using a specific query value for each test case. The response is analyzed for signs of SQL injection vulnerabilities, such as:
+
+HTTP 500 status codes
+
+Database or application error messages
+
+Test Case Handling
+
+The function read_test_cases(file_path) reads SQL injection payloads from a text file, where each line represents a unique test case used during testing.
+
+Concurrent Execution
+
+A ThreadPoolExecutor is used to execute multiple HTTP requests in parallel (50 threads by default). A small delay is added between requests to reduce server overload. The script waits for all threads to complete before exiting.
+
+Test Cases File
+
+The project expects a file named test_cases.txt containing SQL injection payloads. Each line in the file should contain a single test case.
+
+Purpose
+
+This tool was created for learning and testing purposes, focusing on automating basic SQL injection detection through parallel requests.
